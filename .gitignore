@@ -1,0 +1,9 @@
+# Java class files
+*.class
+target/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
