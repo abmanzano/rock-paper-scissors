@@ -7,3 +7,8 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### ECLIPSE ###
+.classpath
+.project
+.settings

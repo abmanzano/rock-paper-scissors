@@ -20,4 +20,19 @@
     <welcome-file-list>
         <welcome-file>home.xhtml</welcome-file>
     </welcome-file-list>
+    <!-- To force the page to reload and refresh the mode for all JSF views without the need
+    to restart the server or redeploy the web application -->
+    <context-param>
+    	<param-name>javax.faces.PROJECT_STAGE</param-name>
+    	<param-value>Development</param-value>
+	</context-param>
+	<context-param>
+	    <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+	    <param-value>0</param-value>
+	</context-param>
+	<!-- To apply a theme to PrimeFaces -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>redmond</param-value>
+	</context-param>
 </web-app>
