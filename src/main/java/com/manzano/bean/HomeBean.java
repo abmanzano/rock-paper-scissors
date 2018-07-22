@@ -2,6 +2,8 @@ package com.manzano.bean;
 
 import com.manzano.data.Player;
 import com.manzano.service.PlayRound;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,6 +17,8 @@ import java.util.Map;
 @ManagedBean
 @SessionScoped
 public class HomeBean implements Serializable {
+
+    private static final Logger LOGGER = LogManager.getLogger(HomeBean.class);
 
     @Inject
     private PlayRound playRound;
@@ -31,11 +35,15 @@ public class HomeBean implements Serializable {
 
         List<Player> players = playRound.playRandomRound();
         resultsPerRound.put(round, players);
+
+        LOGGER.info("Player plays round number " + round);
     }
 
     public void restartGame(){
         round = 0;
         resultsPerRound = new HashMap<>();
+
+        LOGGER.info("Restart game for current player.");
     }
 
     public int getRound() {
