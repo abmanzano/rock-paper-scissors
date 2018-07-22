@@ -3,50 +3,76 @@
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
-	<title>Rock Paper Scissors</title>
-	<h:outputStylesheet library="css" name="styles.css" />
+    <title>Rock Paper Scissors</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 
 <h:body>
-	<!-- Header -->
-	<div class="game_header">
-		Rock Paper Scissors
+    <!-- Header -->
+    <div class="game_header">
+        Rock Paper Scissors
     </div>
-	<!-- Body -->
+    <!-- Body -->
     <div>
-    	<h:form>
-    		<div class="ui-g" style="margin-bottom:20px">
-    			<div class="ui-g-12 ui-md-6 ui-lg-3">
-    				<p:commandButton value="Play round" id="playRound" icon="ui-icon-play" />
-    			</div>
-    			<div class="ui-g-12 ui-md-6 ui-lg-3">
-    				<p:commandButton value="Restart game" id="restartGame" icon="ui-icon-arrowrefresh-1-e" />
-    			</div>
-    		</div>
-    		<div class="ui-g">
-    			<div class="ui-g-3">
-    				<p:outputLabel value="Number of played rounds: " />
-    			</div>
-    		</div>
-		</h:form>		
-		
-		<p:panelGrid style="margin-top:20px">
-		    <f:facet name="header">
-		        <p:row>
-		            <p:column colspan="9" style="font-weight: bold;">Detail of automatic rounds</p:column>
-		        </p:row>
-		        <p:row>
-		            <p:column colspan="3">First player choice</p:column>
-		            <p:column colspan="3">Second player choice</p:column>
-		            <p:column colspan="3">Result of round</p:column>
-		        </p:row>
-		    </f:facet>
-		</p:panelGrid>
+        <h:form>
+            <div class="ui-g" style="margin-bottom:20px">
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <p:commandButton value="Play round" id="playRound" action="#{homeBean.playGame}" ajax="false"
+                                     icon="ui-icon-play"/>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <p:commandButton value="Restart game" id="restartGame" action="#{homeBean.restartGame}" ajax="false"
+                                     icon="ui-icon-arrowrefresh-1-e"/>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-3">
+                    <p:outputLabel value="Number of played rounds: #{homeBean.round}"/>
+                </div>
+            </div>
+        </h:form>
+
+        <p:panelGrid style="margin-top:20px">
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="9" style="font-weight: bold;">Detail of automatic rounds</p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="3">First player choice</p:column>
+                    <p:column colspan="3">Second player choice</p:column>
+                    <p:column colspan="3">Result of round</p:column>
+                </p:row>
+            </f:facet>
+
+            <c:forEach items="#{homeBean.resultsPerRound}" var="round">
+                <p:row>
+                    <p:column colspan="3">#{round.value.get(0).choice.choiceDescription}</p:column>
+                    <p:column colspan="3">#{round.value.get(1).choice.choiceDescription}</p:column>
+                    <p:column colspan="3">
+                        <c:choose>
+                            <c:when test="${!round.value.get(0).hasWon() and !round.value.get(1).hasWon()}">
+                                <p:outputLabel value="Draw"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${round.value.get(0).hasWon()}">
+                                        <p:outputLabel value="#{round.value.get(0).playerName} wins"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p:outputLabel value="#{round.value.get(1).playerName} wins"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </p:column>
+                </p:row>
+            </c:forEach>
+        </p:panelGrid>
     </div>
 </h:body>
 </html>
