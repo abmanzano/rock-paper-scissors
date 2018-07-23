@@ -1,23 +1,24 @@
 package com.manzano.service;
 
 import com.manzano.data.Player;
-import com.manzano.service.impl.PlayRoundImpl;
+import com.manzano.service.impl.PlayRoundServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
 
-public class PlayRoundTest {
+public class PlayRoundServiceTest {
 
-    PlayRound service;
+    private PlayRoundService service;
 
     @Before
     public void setup() {
-        service = new PlayRoundImpl();
+        service = new PlayRoundServiceImpl();
     }
 
     @Test
@@ -27,6 +28,6 @@ public class PlayRoundTest {
         assertTrue(result.isEmpty());
         result = service.playRandomRound();
         assertFalse(result.isEmpty());
-        assertTrue(result.size() == 2);
+        assertThat(result.size(), is(equalTo(2)));
     }
 }

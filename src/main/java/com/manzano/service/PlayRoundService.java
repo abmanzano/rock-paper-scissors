@@ -4,7 +4,7 @@ import com.manzano.data.Player;
 
 import java.util.List;
 
-public interface PlayRound {
+public interface PlayRoundService {
 
     /**
      * There will be 2 kind of players. One should always choose randomly, the

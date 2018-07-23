@@ -4,7 +4,7 @@ package com.manzano.com.manzano.bean;
 import com.manzano.bean.HomeBean;
 import com.manzano.data.Choice;
 import com.manzano.data.Player;
-import com.manzano.service.PlayRound;
+import com.manzano.service.PlayRoundService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,19 +16,22 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HomeBeanTest {
 
     @InjectMocks
-    HomeBean managedBean;
+    private HomeBean managedBean;
 
     @Mock
-    PlayRound playRoundService;
+    private PlayRoundService playRoundService;
 
-    List<Player> players;
+    private List<Player> players;
 
     @Before
     public void setup() {
@@ -41,13 +44,13 @@ public class HomeBeanTest {
 
     @Test
     public void testPlayGame() {
-        assertTrue(managedBean.getRound() == 0);
+        assertThat(managedBean.getRound(), is(equalTo(0)));
         assertTrue(managedBean.getResultsPerRound().isEmpty());
 
         Mockito.when(playRoundService.playRandomRound()).thenReturn(players);
         managedBean.playGame();
         Mockito.verify(playRoundService).playRandomRound();
-        assertTrue(managedBean.getRound() == 1);
+        assertThat(managedBean.getRound(), is(equalTo(1)));
         assertFalse(managedBean.getResultsPerRound().isEmpty());
     }
 
@@ -56,11 +59,11 @@ public class HomeBeanTest {
         Mockito.when(playRoundService.playRandomRound()).thenReturn(players);
         managedBean.playGame();
         Mockito.verify(playRoundService).playRandomRound();
-        assertTrue(managedBean.getRound() == 1);
+        assertThat(managedBean.getRound(), is(equalTo(1)));
         assertFalse(managedBean.getResultsPerRound().isEmpty());
 
         managedBean.restartGame();
-        assertTrue(managedBean.getRound() == 0);
+        assertThat(managedBean.getRound(), is(equalTo(0)));
         assertTrue(managedBean.getResultsPerRound().isEmpty());
     }
 }

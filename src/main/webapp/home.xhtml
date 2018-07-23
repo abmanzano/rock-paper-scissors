@@ -37,7 +37,7 @@
             </div>
         </h:form>
 
-        <p:panelGrid style="margin-top:20px">
+        <p:panelGrid style="margin-top:20px; margin-bottom: 20px;">
             <f:facet name="header">
                 <p:row>
                     <p:column colspan="9" style="font-weight: bold;">Detail of automatic rounds</p:column>
@@ -73,6 +73,20 @@
                 </p:row>
             </c:forEach>
         </p:panelGrid>
+
+        <!-- Statistics -->
+        <p:separator/>
+
+        <h:form>
+            <div class="ui-g" style="margin-bottom:20px">
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <p:commandButton value="Show statistics" id="showStatistics"
+                                     action="statistics" ajax="false"
+                                     icon="ui-icon-info"/>
+                </div>
+            </div>
+        </h:form>
+
     </div>
 </h:body>
 </html>

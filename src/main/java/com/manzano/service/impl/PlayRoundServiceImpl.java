@@ -1,7 +1,8 @@
 package com.manzano.service.impl;
 
+import com.manzano.aop.GameStatistics;
 import com.manzano.data.Player;
-import com.manzano.service.PlayRound;
+import com.manzano.service.PlayRoundService;
 import com.manzano.util.GameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,10 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayRoundImpl implements PlayRound, Serializable {
+public class PlayRoundServiceImpl implements PlayRoundService, Serializable {
 
-    private static final Logger LOGGER = LogManager.getLogger(PlayRoundImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(PlayRoundServiceImpl.class);
 
+    @GameStatistics
     @Override
     public List<Player> playRandomRound() {
         LOGGER.info("Service returns two players. One always choosing randomly and the other always choosing rock.");

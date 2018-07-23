@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>Rock Paper Scissors</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body>
+    <!-- Header -->
+    <div class="game_header">
+        Rock Paper Scissors
+    </div>
+    <!-- Body -->
+    <div>
+
+        <h:form>
+            <div class="ui-g" style="margin-bottom:20px">
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <p:commandButton value="Back" id="backToHome" action="home"
+                                     icon="ui-icon-arrowthick-1-w"/>
+                </div>
+            </div>
+        </h:form>
+
+        <p:panelGrid style="margin-top:20px">
+            <f:facet name="header">
+                <p:row>
+                    <p:column colspan="9" style="font-weight: bold;">Statistics</p:column>
+                </p:row>
+            </f:facet>
+            <p:row>
+                <p:column colspan="6">Total rounds played</p:column>
+                <p:column colspan="3">#{statisticsBean.totalRounds}</p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="6">Total wins for first players</p:column>
+                <p:column colspan="3">#{statisticsBean.totalWinsFirstPlayer}</p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="6">Total wins for second players</p:column>
+                <p:column colspan="3">#{statisticsBean.totalWinsSecondPlayer}</p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="6">Total draws</p:column>
+                <p:column colspan="3">#{statisticsBean.totalDraws}</p:column>
+            </p:row>
+        </p:panelGrid>
+
+    </div>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{statisticsBean.displayStatistics}"/>
+    </f:metadata>
+</h:body>
+</html>
